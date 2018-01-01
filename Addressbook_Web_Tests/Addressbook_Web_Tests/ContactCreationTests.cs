@@ -10,13 +10,12 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests
+    public class ContactCreationTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
-        private static Random rndNumber = new Random((int)DateTime.Now.Ticks);
 
         [SetUp]
         public void SetupTest()
@@ -44,19 +43,22 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void GroupCreationTest()
+        public void ContactCreationTest()
         {
             GoToHomePage();
             Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitNewGroupCreation();
-            GroupData group = new GroupData("group_" + rndNumber.Next(1000).ToString());
-            group.Header = "header";
-            group.Footer = "footer";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupPage();
+            InitNewContactCreation();
+            ContactData contact = new ContactData("Denis");
+            contact.Lastname = "Tazitdinov";
+            FillForm(contact);
+            SubmitContactCreation();
+            ReturnHomePage();
             Logout();
+        }
+
+        private void ReturnHomePage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
         }
 
         private void Logout()
@@ -64,34 +66,22 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("Logout")).Click();
         }
 
-        private void ReturnToGroupPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-        }
-
-        private void SubmitGroupCreation()
+        private void SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void FillGroupForm(GroupData group)
+        private void FillForm(ContactData contact)
         {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Name);
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
         }
 
-        private void InitNewGroupCreation()
+        private void InitNewContactCreation()
         {
-            driver.FindElement(By.Name("new")).Click();
-        }
-
-        private void GoToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
         private void Login(AccountData account)
@@ -157,3 +147,4 @@ namespace WebAddressbookTests
         }
     }
 }
+
