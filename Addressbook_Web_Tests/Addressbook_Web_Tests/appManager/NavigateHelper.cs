@@ -9,23 +9,25 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class HelperNavigate : HelperBase
+    public class NavigateHelper : HelperBase
     {
         public string baseURL;
 
-        public HelperNavigate(IWebDriver driver, string baseURL) : base(driver)
+        public NavigateHelper(ApplicationManager manager, string baseURL) : base(manager)
         {
             this.baseURL = baseURL;
         }
 
-        public void GoToHomePage()
+        public NavigateHelper GoToHomePage()
         {
             driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            return this;
         }
 
-        public void GoToGroupsPage()
+        public NavigateHelper GoToGroupsPage()
         {
             driver.FindElement(By.LinkText("groups")).Click();
+            return this;
         }
 
     }
