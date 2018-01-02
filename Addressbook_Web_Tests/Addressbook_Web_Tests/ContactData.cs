@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WebAddressbookTests
-
 {
-    class ContactData
+    public class ContactData
     {
         private string name = "";
         private string lastname = "";
@@ -17,7 +16,16 @@ namespace WebAddressbookTests
             this.name = name;
         }
 
-        public string Name { get => name; set => name = value; }
-        public string Lastname { get => lastname; set => lastname = value; }
+        public string Name
+        {
+            get => name;
+            set => name = value;
+        }
+
+        public string Lastname
+        {
+            get => lastname;
+            set => lastname = value;
+        }
     }
 }
