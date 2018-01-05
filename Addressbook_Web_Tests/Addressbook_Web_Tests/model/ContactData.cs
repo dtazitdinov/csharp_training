@@ -10,6 +10,7 @@ namespace WebAddressbookTests
     {
         private string name = "";
         private string lastname = "";
+        private int id = 0;
 
         public ContactData(string name)
         {
@@ -26,6 +27,12 @@ namespace WebAddressbookTests
         {
             get => lastname;
             set => lastname = value;
+        }
+
+        public int ID
+        {
+            get => id;
+            set => id = value;
         }
     }
 }

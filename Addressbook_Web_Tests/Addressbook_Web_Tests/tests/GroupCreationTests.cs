@@ -13,11 +13,11 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("group_" + OtherMetods.NextRndNumToStr(1000));
-            group.Header = "header";
-            group.Footer = "footer";
+            GroupData newGroup = new GroupData("group #" + OtherMetods.RandomNumber(1000));
+            newGroup.Header = "header";
+            newGroup.Footer = "footer";
 
-            appManager.Group.Create(group);
+            appManager.Groups.Create(newGroup);
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace WebAddressbookTests
             group.Header = "";
             group.Footer = "";
 
-            appManager.Group.Create(group);
+            appManager.Groups.Create(group);
         }
     }
 }

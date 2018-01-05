@@ -63,12 +63,12 @@ namespace WebAddressbookTests
             get => navigateHelper;
         }
 
-        public GroupHelper Group
+        public GroupHelper Groups
         {
             get => groupHelper;
         }
 
-        public ContactHelper Contact
+        public ContactHelper Contacts
         {
             get => contactHelper;
         }

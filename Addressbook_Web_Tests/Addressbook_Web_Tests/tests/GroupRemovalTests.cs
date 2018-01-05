@@ -13,12 +13,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupRemovalTest()
         {
-            GroupData group = new GroupData("group_" + OtherMetods.NextRndNumToStr(1000));
-            group.Header = "header";
-            group.Footer = "footer";
+            GroupData groupForRemove = new GroupData("Group for remove");
 
-            appManager.Group.Create(group);
-            appManager.Group.Remove();
+            appManager.Groups.Create(groupForRemove);
+            appManager.Groups.Remove(groupForRemove);
         }
     }
 }

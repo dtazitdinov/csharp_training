@@ -10,7 +10,7 @@ namespace WebAddressbookTests
     {
         private static Random rndNumber = new Random((int)DateTime.Now.Ticks);
 
-        public static string NextRndNumToStr(int maxNum)
+        public static string RandomNumber(int maxNum)
         {
             return rndNumber.Next(maxNum).ToString();
         }

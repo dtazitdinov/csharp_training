@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -24,9 +24,32 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Edit(ContactData contact)
+        {
+            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            FillForm(contact);
+            SubmitEditedContact();
+            ReturnHomePage();
+            return this;
+        }
+
+        public ContactHelper RemoveByName(ContactData contact)
+        {
+            driver.FindElement(By.XPath("//td[text()=\"" + contact.Name + "\"]/..//input")).Click();
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            ReturnHomePage();
+            return this;
+        }
+        
+        public void SubmitEditedContact()
+        {
+            driver.FindElement(By.Name("update")).Click();
+        }
+
         public ContactHelper ReturnHomePage()
         {
-            driver.FindElement(By.LinkText("home page")).Click();
+            driver.FindElement(By.LinkText("home")).Click();
             return this;
         }
 
