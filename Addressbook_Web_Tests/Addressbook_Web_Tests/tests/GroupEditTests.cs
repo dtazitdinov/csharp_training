@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace WebAddressbookTests.tests
+namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupEditTests : TestBase
+    public class GroupEditTests : AuthTestBase
     {
         [Test]
         public void GroupEditTest()

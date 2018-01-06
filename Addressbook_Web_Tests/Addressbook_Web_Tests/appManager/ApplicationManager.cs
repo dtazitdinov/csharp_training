@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -14,14 +15,15 @@ namespace WebAddressbookTests
         public IWebDriver driver;
         private StringBuilder verificationErrors;
         protected string baseURL;
-       
 
         protected LoginHelper loginHelper;
         protected GroupHelper groupHelper;
         protected NavigateHelper navigateHelper;
         protected ContactHelper contactHelper;
 
-        public ApplicationManager()
+        private static ThreadLocal<ApplicationManager> appManager = new ThreadLocal<ApplicationManager>();
+
+        private ApplicationManager()
         {
             FirefoxOptions options = new FirefoxOptions();
             options.BrowserExecutableLocation = @"c:\Program Files\Mozilla Firefox\firefox.exe";
@@ -36,21 +38,32 @@ namespace WebAddressbookTests
             contactHelper = new ContactHelper(this);
         }
 
-        public IWebDriver Driver
+        public static ApplicationManager GetThreadInstance()
         {
-            get => driver;
+            if (! appManager.IsValueCreated)
+            {
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.GoToHomePage();
+                appManager.Value = newInstance;                
+            }
+            return appManager.Value;
         }
 
-        public void Stop()
+        ~ApplicationManager()
         {
             try
             {
-                Driver.Quit();
+                driver.Quit();
             }
-            catch (Exception)
+            catch(Exception)
             {
-                // Ignore errors if unable to close the browser
+                //Ignor errors if unable to close the browser
             }
+        }
+
+        public IWebDriver Driver
+        {
+            get => driver;
         }
 
         public LoginHelper Auth

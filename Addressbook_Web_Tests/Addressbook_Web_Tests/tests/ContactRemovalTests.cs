@@ -5,15 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace WebAddressbookTests.tests
+namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests : TestBase
+    public class ContactRemovalTests : AuthTestBase
     {
         [Test]
         public void ContactRemovalTest()
         {
+            appManager.Contacts.Remove();
+        }
+
+        [Test]
+        public void ContactRemovalByNameTest()
+        {
             ContactData contactForRemove = new ContactData("Contact for remove");
+            contactForRemove.Lastname = null;
 
             appManager.Contacts.Create(contactForRemove);
 

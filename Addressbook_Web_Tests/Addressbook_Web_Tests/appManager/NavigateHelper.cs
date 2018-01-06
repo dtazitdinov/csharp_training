@@ -18,16 +18,22 @@ namespace WebAddressbookTests
             this.baseURL = baseURL;
         }
 
-        public NavigateHelper GoToHomePage()
+        public void GoToHomePage()
         {
+            if (driver.Url == baseURL + "addressbook/")
+            {
+                return;
+            }
             driver.Navigate().GoToUrl(baseURL + "addressbook/");
-            return this;
         }
 
-        public NavigateHelper GoToGroupsPage()
+        public void GoToGroupsPage()
         {
+            if (driver.Url == "addressbook/group.php" && IsElementPresent(By.Name("new")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("groups")).Click();
-            return this;
         }
 
     }
