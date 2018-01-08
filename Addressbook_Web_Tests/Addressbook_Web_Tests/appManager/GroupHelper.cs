@@ -47,6 +47,7 @@ namespace WebAddressbookTests
 
         public void CheckGroupPresent()
         {
+            manager.Navigator.GoToGroupsPage();
             if (IsElementPresent(By.XPath("//span")))
             {
                 return;
@@ -113,6 +114,19 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
+        }
+
+        public List<GroupData> GetGroupsList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
         }
     }
 }

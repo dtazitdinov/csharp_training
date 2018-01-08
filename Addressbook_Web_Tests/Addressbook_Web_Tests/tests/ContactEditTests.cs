@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -16,8 +16,14 @@ namespace WebAddressbookTests
             ContactData newContactData = new ContactData("Daria");
             newContactData.Lastname = "Poliakova";
 
+
             appManager.Contacts.CheckContactPresent();
+            List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
+
             appManager.Contacts.Edit(newContactData);
+
+            List<ContactData> newContacts = appManager.Contacts.GetContactsList();
+            Assert.AreEqual(oldContacts.Count, newContacts.Count);
         }
 
     }

@@ -17,8 +17,14 @@ namespace WebAddressbookTests
             newGroupData.Header = "Changed Header";
             newGroupData.Footer = "Changed Footer";
 
+
             appManager.Groups.CheckGroupPresent();
+            List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
+
             appManager.Groups.Edit(newGroupData);
+
+            List<GroupData> newGroups = appManager.Groups.GetGroupsList();
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
         }
     }
 }

@@ -100,6 +100,7 @@ namespace WebAddressbookTests
 
         public void CheckContactPresent()
         {
+            manager.Navigator.GoToHomePage();
             if (IsElementPresent(By.Name("entry")))
             {
                 return;
@@ -115,6 +116,19 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             return this;
+        }
+
+        public List<ContactData> GetContactsList()
+        {
+            List<ContactData> Contacts = new List<ContactData>();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name=\"entry\"]/td[3]"));
+
+            foreach (IWebElement element in elements)
+            {
+                Contacts.Add(new ContactData(element.Text));
+            }
+            return Contacts;
         }
     }
 }
