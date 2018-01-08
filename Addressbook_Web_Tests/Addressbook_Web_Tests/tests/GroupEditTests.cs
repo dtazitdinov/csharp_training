@@ -17,6 +17,7 @@ namespace WebAddressbookTests
             newGroupData.Header = "Changed Header";
             newGroupData.Footer = "Changed Footer";
 
+            appManager.Groups.CheckGroupPresent();
             appManager.Groups.Edit(newGroupData);
         }
     }

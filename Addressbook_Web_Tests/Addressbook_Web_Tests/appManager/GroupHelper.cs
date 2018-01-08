@@ -28,7 +28,6 @@ namespace WebAddressbookTests
         public GroupHelper Edit(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
-            CheckGroupPresent();
             SelectGroup(1);
             InitEditGroup();
             FillGroupForm(group);
@@ -40,7 +39,6 @@ namespace WebAddressbookTests
         public GroupHelper Remove()
         {
             manager.Navigator.GoToGroupsPage();
-            CheckGroupPresent();
             SelectGroup(1);
             RemoveGroup();
             ReturnToGroupPage();

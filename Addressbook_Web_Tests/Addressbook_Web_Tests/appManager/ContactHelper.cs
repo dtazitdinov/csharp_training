@@ -26,7 +26,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Edit(ContactData contact)
         {
-            CheckContactPresent();
             SelectContact(1);
             InitEditContact();
             FillForm(contact);
@@ -37,7 +36,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove()
         {
-            CheckContactPresent();
             SelectContact(1);
             InitRemoveContact();
             driver.SwitchTo().Alert().Accept();
@@ -47,7 +45,6 @@ namespace WebAddressbookTests
 
         public ContactHelper RemoveByName(ContactData contact)
         {
-            CheckContactPresent();
             SelectContactByName(contact);
             InitRemoveContact();
             driver.SwitchTo().Alert().Accept();
