@@ -24,23 +24,29 @@ namespace WebAddressbookTests
             appManager.Groups.Create(newGroup);
 
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+            oldGroups.Add(newGroup);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
+            GroupData newGroup = new GroupData("");
+            newGroup.Header = "";
+            newGroup.Footer = "";
 
             appManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
 
-            appManager.Groups.Create(group);
+            appManager.Groups.Create(newGroup);
 
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+            oldGroups.Add(newGroup);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

@@ -14,17 +14,20 @@ namespace WebAddressbookTests
         public void ContactEditTest()
         {
             ContactData newContactData = new ContactData("Daria");
-            newContactData.Lastname = "Poliakova";
+            newContactData.Lastname = "Polyakova";
 
 
             appManager.Contacts.CheckContactPresent();
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
 
-            appManager.Contacts.Edit(newContactData);
+            appManager.Contacts.Edit(0, newContactData);
 
             List<ContactData> newContacts = appManager.Contacts.GetContactsList();
-            Assert.AreEqual(oldContacts.Count, newContacts.Count);
+            oldContacts[0].Name = "Daria";
+            oldContacts[0].Lastname = "Polyakova";
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
-
     }
 }

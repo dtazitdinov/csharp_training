@@ -17,10 +17,13 @@ namespace WebAddressbookTests
             appManager.Groups.CheckGroupPresent();
             List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
 
-            appManager.Groups.Remove();
+            appManager.Groups.Remove(0);
 
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count, newGroups.Count + 1);
+            oldGroups.RemoveAt(0);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

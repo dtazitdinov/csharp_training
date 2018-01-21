@@ -13,18 +13,24 @@ namespace WebAddressbookTests
         [Test]
         public void GroupEditTest()
         {
-            GroupData newGroupData = new GroupData("Changed Group #" + OtherMetods.RandomNumber(1000));
-            newGroupData.Header = "Changed Header";
-            newGroupData.Footer = "Changed Footer";
+            GroupData newData = new GroupData("Changed Group #" + OtherMetods.RandomNumber(1000));
+            newData.Header = "Changed Header";
+            newData.Footer = "Changed Footer";
 
 
             appManager.Groups.CheckGroupPresent();
             List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
 
-            appManager.Groups.Edit(newGroupData);
-
+            appManager.Groups.Edit(0, newData);
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
-            Assert.AreEqual(oldGroups.Count, newGroups.Count);
+
+            oldGroups[0].Name = newData.Name;
+            oldGroups[0].Header = newData.Header;
+            oldGroups[0].Footer = newData.Footer;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
     }
 }
