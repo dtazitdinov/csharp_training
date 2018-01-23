@@ -8,10 +8,6 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string name = "";
-        private string lastname = "";
-        private int id = 0;
-
         public ContactData(string name)
         {
             Name = name;
@@ -23,11 +19,9 @@ namespace WebAddressbookTests
             Lastname = lastname;
         }
 
-        public string Name { get => name; set => name = value; }
-
-        public string Lastname { get => lastname; set => lastname = value; }
-
-        public int Id { get => id; set => id = value; }
+        public string Name { get; set; }
+        public string Lastname { get; set; }
+        public string Id { get; set; }
 
         public int CompareTo(ContactData other)
         {

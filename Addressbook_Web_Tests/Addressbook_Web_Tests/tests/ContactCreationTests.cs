@@ -20,7 +20,10 @@ namespace WebAddressbookTests
 
             appManager.Contacts.Create(newContact);
 
+            Assert.AreEqual(oldContacts.Count + 1, appManager.Contacts.GetContactsCount());
+
             List<ContactData> newContacts = appManager.Contacts.GetContactsList();
+
             oldContacts.Add(newContact);
             oldContacts.Sort();
             newContacts.Sort();

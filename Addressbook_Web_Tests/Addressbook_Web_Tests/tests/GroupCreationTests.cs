@@ -23,6 +23,8 @@ namespace WebAddressbookTests
 
             appManager.Groups.Create(newGroup);
 
+            Assert.AreEqual(oldGroups.Count + 1, appManager.Groups.GetGroupsCount());
+
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
             oldGroups.Add(newGroup);
             oldGroups.Sort();
@@ -41,6 +43,8 @@ namespace WebAddressbookTests
             List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
 
             appManager.Groups.Create(newGroup);
+
+            Assert.AreEqual(oldGroups.Count + 1, appManager.Groups.GetGroupsCount());
 
             List<GroupData> newGroups = appManager.Groups.GetGroupsList();
             oldGroups.Add(newGroup);

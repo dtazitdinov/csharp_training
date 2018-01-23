@@ -16,13 +16,21 @@ namespace WebAddressbookTests
             appManager.Contacts.CheckContactPresent();
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
 
+            ContactData toBeRemoved = oldContacts[0];
             appManager.Contacts.Remove(0);
+
+            Assert.AreEqual(oldContacts.Count - 1, appManager.Contacts.GetContactsCount());
 
             List<ContactData> newContacts = appManager.Contacts.GetContactsList();
             oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                Assert.AreNotEqual(contact.Id, toBeRemoved.Id);
+            }
         }
 
         [Test]
@@ -37,6 +45,9 @@ namespace WebAddressbookTests
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
 
             appManager.Contacts.RemoveByName(contactForRemove);
+
+            Assert.AreEqual(oldContacts.Count - 1, appManager.Contacts.GetContactsCount());
+
             List<ContactData> newContacts = appManager.Contacts.GetContactsList();
 
             foreach (ContactData element in oldContacts)

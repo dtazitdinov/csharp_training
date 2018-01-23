@@ -34,6 +34,11 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public int GetContactsCount()
+        {
+           return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
+        }
+
         public ContactHelper Remove(int index)
         {
             SelectContact(index);
@@ -135,7 +140,9 @@ namespace WebAddressbookTests
                 {
                     ICollection<IWebElement> columns = element.FindElements(By.TagName("td"));
 
-                    groupCache.Add(new ContactData(columns.ElementAt(2).Text, columns.ElementAt(1).Text));
+                    groupCache.Add(new ContactData(columns.ElementAt(2).Text, columns.ElementAt(1).Text){
+                        Id = columns.ElementAt(0).FindElement(By.TagName("input")).GetAttribute("value")
+                    });
                 }
             }
             return new List<ContactData>(groupCache);
