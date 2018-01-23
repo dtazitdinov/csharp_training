@@ -37,7 +37,7 @@ namespace WebAddressbookTests
             newGroup.Header = "";
             newGroup.Footer = "";
 
-            appManager.Navigator.GoToGroupsPage();
+            
             List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
 
             appManager.Groups.Create(newGroup);

@@ -65,6 +65,7 @@ namespace WebAddressbookTests
         public void SubmitEditedContact()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCache = null;
         }
 
         public ContactHelper InitEditContact()
@@ -82,6 +83,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
+            groupCache = null;
             return this;
         }
 
@@ -115,22 +117,28 @@ namespace WebAddressbookTests
         public ContactHelper InitRemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            groupCache = null;
             return this;
         }
 
+        private List<ContactData> groupCache = null;
+
         public List<ContactData> GetContactsList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-
-            ICollection<IWebElement> names = driver.FindElements(By.XPath("//tr[@name=\"entry\"]/td[3]"));
-            ICollection<IWebElement> lastnames = driver.FindElements(By.XPath("//tr[@name=\"entry\"]/td[2]"));
-
-            for ( int i = 0; i < names.Count; i++ )
+            if (groupCache == null)
             {
-                contacts.Add(new ContactData(names.ElementAt(i).Text, lastnames.ElementAt(i).Text));         
-            }
+                groupCache = new List<ContactData>();
 
-            return contacts;
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+
+                foreach (IWebElement element in elements)
+                {
+                    ICollection<IWebElement> column = element.FindElements(By.TagName("td"));
+
+                    groupCache.Add(new ContactData(column.ElementAt(2).Text, column.ElementAt(1).Text));
+                }
+            }
+            return new List<ContactData>(groupCache);
         }
     }
 }

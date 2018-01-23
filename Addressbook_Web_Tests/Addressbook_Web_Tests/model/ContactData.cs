@@ -60,7 +60,6 @@ namespace WebAddressbookTests
             {
                 return Lastname == other.Lastname;
             }
-
             return Name == other.Name;
         }
 
