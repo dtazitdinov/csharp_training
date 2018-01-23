@@ -60,7 +60,7 @@ namespace WebAddressbookTests
             {
                 return Lastname == other.Lastname;
             }
-            return Name == other.Name;
+            return false;
         }
 
         public override int GetHashCode()

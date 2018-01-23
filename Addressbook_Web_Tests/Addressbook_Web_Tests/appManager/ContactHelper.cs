@@ -133,9 +133,9 @@ namespace WebAddressbookTests
 
                 foreach (IWebElement element in elements)
                 {
-                    ICollection<IWebElement> column = element.FindElements(By.TagName("td"));
+                    ICollection<IWebElement> columns = element.FindElements(By.TagName("td"));
 
-                    groupCache.Add(new ContactData(column.ElementAt(2).Text, column.ElementAt(1).Text));
+                    groupCache.Add(new ContactData(columns.ElementAt(2).Text, columns.ElementAt(1).Text));
                 }
             }
             return new List<ContactData>(groupCache);
