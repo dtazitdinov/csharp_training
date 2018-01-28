@@ -13,7 +13,16 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData newContact = new ContactData("Denis", "Tazitdinov");
+            ContactData newContact = new ContactData("Denis", "Tazitdinov")
+            {
+                Address = "Kurchatova 25A, 47 ",
+                HomePhone = "111 11 11",
+                MobilePhone = "+2 (222) 222-22-22",
+                WorkPhone = "333-33-33",
+                Email = "1111@aaa.ru",
+                Email2 = "2222@bbb.ru",
+                Email3 = "3333@ccc.com",
+            };
 
             appManager.Navigator.GoToHomePage();
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();

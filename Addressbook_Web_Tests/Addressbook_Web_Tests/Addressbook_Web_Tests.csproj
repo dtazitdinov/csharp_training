@@ -68,6 +68,7 @@
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\GroupData.cs" />
     <Compile Include="tests\ContactEditTests.cs" />
+    <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
     <Compile Include="tests\GroupEditTests.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />

@@ -38,9 +38,14 @@ namespace WebAddressbookTests
 
         public bool LoggedIn(AccountData account)
         {
-            return LoggedIn() 
-                   && driver.FindElement(By.XPath("//form[@name=\"logout\"]/b")).Text == "(" + account.Username + ")";
+            return LoggedIn()
+                && GetLoggetUserName() == account.Username;
+        }
 
+        private string GetLoggetUserName()
+        {
+            string text = driver.FindElement(By.XPath("//form[@name=\"logout\"]/b")).Text;
+            return text.Substring(1, text.Length - 2);
         }
 
         public void Logout()

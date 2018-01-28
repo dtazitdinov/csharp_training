@@ -52,7 +52,7 @@ namespace WebAddressbookTests
 
             foreach (ContactData element in oldContacts)
             {
-                if (element.Name == "Contact for remove")
+                if (element.FirstName == "Contact for remove")
                 {
                     oldContacts.Remove(element);
                     break;
