@@ -4,26 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using System.Globalization;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactInformationTests : AuthTestBase
+    public class ContactDetailsTests : AuthTestBase
     {
         [Test]
-        public void TestContactInformation()
+        public void TestContactDetail()
         {
-            ContactData fromTable = appManager.Contacts.GetContactInformationFromTable(0);
+            string fromDetail = appManager.Contacts.GetContactInformationFromDetail(0);
             ContactData fromForm = appManager.Contacts.GetContactInformationFromForm(0);
-            string[] months = DateTimeFormatInfo.InvariantInfo.MonthNames;
+            string formInString = appManager.Contacts.GetContactInformationToString(fromForm);
 
-            Assert.AreEqual(fromTable, fromForm);
+            /*Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);*/
         }
-        
+
 
 
     }

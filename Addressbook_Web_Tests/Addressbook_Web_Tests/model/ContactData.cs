@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace WebAddressbookTests
 {
@@ -39,15 +40,66 @@ namespace WebAddressbookTests
         public string Email3 { get; set; }
         public string Homepage { get; set; }
 
-        public string Birthday_year { get; set; }
-        public string Birthday_day { get; set; }
-        public string BirthdayMonth { get; set; }
-        public string Anniversary_year { get; set; }
-        public string Anniversary_day { get; set; }
-        public string Anniversary_month { get; set; }
+        public DateTime birthday;
+        public DateTime Birthday { get; set; }
+        /*{
+            get
+            {
+                if (birthday != null)
+                {
+                    return birthday;
+                }
+                else
+                {
+                    if (BirthdayYear != "")
+                    {
+                        int year = Int32.Parse(BirthdayYear);
 
+                        if (BirthdayDay == "")
+                        {
+                            int day = 1;
+                        }
+                        else
+                        {
+                            int day = Int32.Parse(BirthdayDay);
+                        }
+                        string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
+                        if (BirthdayMonth == "-")
+                        {
+                            int month = 1;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 12; i++)
+                            {
+                                if (BirthdayMonth == monthNames[i])
+                                {
+                                    int month = i + 1;
+                                }
+                            }
+                        }
+
+                        string date = string.Format("{0}.{1}.{2}", BirthdayDay, BirthdayMonth, BirthdayYear);
+                        birthday = new DateTime(1988, month, day);
+                    }
+                }
+                return birthday;
+            }
+            set
+            {
+                birthday = value;
+            }
+        }*/
+        public string BirthdayYear { get; set; }
+        public string BirthdayDay { get; set; }
+        public string BirthdayMonth { get; set; }
+        public DateTime Anniversary { get; set; }
+        public string AnniversaryYear { get; set; }
+        public string AnniversaryDay { get; set; }
+        public string AnniversaryMonth { get; set; }
+        
         public string SecondaryAddress { get; set; }
-        public string Secondary_phone { get; set; }
+        public string SecondaryPhone { get; set; }
         public string Notes { get; set; }
 
         public string allPhones;
@@ -61,7 +113,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(SecondaryPhone)).Trim();
                 }
             }
             set
@@ -86,7 +138,8 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (Email + "\r\n" + Email2 + "\r\n" + Email3).Trim();
+                    
+                    return ((Email + "\r\n" + Email2).Trim() + "\r\n" + Email3).Trim();
                 }
             }
             set

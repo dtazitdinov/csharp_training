@@ -14,7 +14,7 @@
   <Class Name="WebAddressbookTests.AccountData" Collapsed="true">
     <Position X="16.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAQAAAAEAAAAAAAACAAAAAgAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>model\AccountData.cs</FileName>
       <NewMemberFileName>Model\AccountData.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -27,18 +27,10 @@
       <NewMemberFileName>Tests\ContactCreationTests.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WebAddressbookTests.ContactData" Collapsed="true">
-    <Position X="16.5" Y="6" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAgAgAAIAAAAAAQAAAAEAAAAAAAAAAAAAgA=</HashCode>
-      <FileName>model\ContactData.cs</FileName>
-      <NewMemberFileName>Model\ContactData.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="WebAddressbookTests.GroupCreationTests" Collapsed="true">
     <Position X="4.75" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>tests\GroupCreationTests.cs</FileName>
       <NewMemberFileName>Tests\GroupCreationTests.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -46,7 +38,7 @@
   <Class Name="WebAddressbookTests.GroupData" Collapsed="true">
     <Position X="16.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAQAAAAAAAQEgAAAAAQAAAAEAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>BAACAAAAAAAAAAQEgAAAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>model\GroupData.cs</FileName>
       <NewMemberFileName>Model\GroupData.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -62,21 +54,21 @@
   <Class Name="WebAddressbookTests.ContactHelper" Collapsed="true">
     <Position X="14.25" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABFAAEAgAAAAQAAAAAABAAAAgAgAECCAAAAAFAABAA=</HashCode>
+      <HashCode>QABFAgEAgAAAAQAAAAAARAAAAgggCECGIAAAAFIABAA=</HashCode>
       <FileName>appManager\ContactHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.GroupHelper" Collapsed="true">
     <Position X="12.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAQhAAAIBABAAAAAEABAAAAAABEEAGAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAQhAAAIBABAAAAAEABAAAAAABEEAGAAAAAIBAAAA=</HashCode>
       <FileName>appManager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.LoginHelper" Collapsed="true">
     <Position X="10.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAAAAQIAAAAAA=</HashCode>
       <FileName>appManager\LoginHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -157,6 +149,14 @@
       <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>tests\GroupRemovalTests.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="WebAddressbookTests.ContactData" Collapsed="true">
+    <Position X="16.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAjIEAAICAAAEQMgARAAAlCUAJoAMUCAAAFBMAAAAA=</HashCode>
+      <FileName>model\ContactData.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -67,6 +67,7 @@
     <Compile Include="tests\ContactCreationTests.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\GroupData.cs" />
+    <Compile Include="tests\ContactDetailTests.cs" />
     <Compile Include="tests\ContactEditTests.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="appManager\NavigateHelper.cs" />
     <Compile Include="model\OtherMetods.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\ResearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />
