@@ -40,7 +40,7 @@ namespace WebAddressbookTests
         public string Email3 { get; set; }
         public string Homepage { get; set; }
 
-        public DateTime birthday;
+        //public DateTime birthday;
         public DateTime Birthday { get; set; }
         /*{
             get

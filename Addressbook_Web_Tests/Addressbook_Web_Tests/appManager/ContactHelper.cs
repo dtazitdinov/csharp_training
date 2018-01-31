@@ -7,6 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace WebAddressbookTests
 {
@@ -136,7 +137,7 @@ namespace WebAddressbookTests
             Type(By.Name("firstname"), contact.FirstName);
             Type(By.Name("middlename"), contact.Middlename);
             Type(By.Name("lastname"), contact.Lastname);
-            Type(By.Name("nickname"),contact.Lastname);
+            Type(By.Name("nickname"),contact.Nickname);
 
             Type(By.Name("title"), contact.Title);
             Type(By.Name("company"), contact.Company);
@@ -152,13 +153,26 @@ namespace WebAddressbookTests
             Type(By.Name("email3"), contact.Email3);
             Type(By.Name("homepage"), contact.Homepage);
 
-            driver.FindElement(By.Name("bday")).FindElement(By.XPath("/option[@value=" + contact.Birthday.Day + "]")).Click();
-            driver.FindElement(By.Name("bday")).FindElement(By.XPath("/option[@value=" + contact.Birthday.Month + "]")).Click();
-            Type(By.Name("byear"), contact.Birthday.Year.ToString());
+            //driver.FindElement(By.Name("bday")).Click();
+            //string path = string.Format(@"option[value='{0}']", contact.Birthday.Day);
+            //driver.FindElement(By.Name("bday")).FindElements(By.TagName("option"))[contact.Birthday.Day+2].Click();
 
-            driver.FindElement(By.Name("bday")).FindElement(By.XPath("/option[@value=" + contact.Anniversary.Day + "]")).Click();
-            driver.FindElement(By.Name("bday")).FindElement(By.XPath("/option[@value=" + contact.Anniversary.Month + "]")).Click();
-            Type(By.Name("ayear"), contact.Anniversary.Year.ToString());
+            string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
+
+            if (contact.Birthday != DateTime.MinValue)
+            {
+                driver.FindElement(By.XPath($"//select[@name = 'bday']//option[@value = {contact.Birthday.Day}]")).Click();
+                driver.FindElement(By.XPath($"//select[@name = 'bmonth']//option[@value = \"{monthNames[contact.Birthday.Month - 1]}\"]")).Click();
+                Type(By.Name("byear"), contact.Birthday.Year.ToString());
+            }
+
+            if (contact.Anniversary != DateTime.MinValue)
+            {
+                driver.FindElement(By.XPath($"//select[@name = 'aday']//option[@value = {contact.Anniversary.Day}]")).Click();
+                //driver.FindElement(By.XPath($"//select[@name = 'amonth']/option[@value = \"{monthNames[contact.Anniversary.Month - 1].ToLower()}\"]")).Click();
+                driver.FindElement(By.Name("amonth")).FindElements(By.TagName("option"))[contact.Anniversary.Month + 2].Click(); /*.ToLower()}*/
+                Type(By.Name("ayear"), contact.Anniversary.Year.ToString());
+            }
 
             Type(By.Name("address2"), contact.SecondaryAddress);
             Type(By.Name("phone2"), contact.SecondaryPhone);
@@ -258,12 +272,12 @@ namespace WebAddressbookTests
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value").Trim();
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 
-            string birthdayDay = driver.FindElement(By.XPath("//select[@name=\"bday\"]/option[@selected=\"selected\"]")).GetAttribute("value").Trim();
-            string birthdayMonth = driver.FindElement(By.XPath("//select[@name=\"bmonth\"]/option[@selected=\"selected\"]")).GetAttribute("value").Trim();
+            string birthdayDay = driver.FindElement(By.XPath("//select[@name=\"bday\"]/option[@selected=\"selected\"]")).GetAttribute("value");
+            string birthdayMonth = driver.FindElement(By.XPath("//select[@name=\"bmonth\"]/option[@selected=\"selected\"]")).GetAttribute("value");
             string birthdayYear = driver.FindElement(By.Name("byear")).GetAttribute("value").Trim();
 
-            string AnniversaryDay = driver.FindElement(By.XPath("//select[@name=\"aday\"]/option[@selected=\"selected\"]")).GetAttribute("value").Trim();
-            string AnniversaryMonth = driver.FindElement(By.XPath("//select[@name=\"amonth\"]/option[@selected=\"selected\"]")).GetAttribute("value").Trim();
+            string AnniversaryDay = driver.FindElement(By.XPath("//select[@name=\"aday\"]/option[@selected=\"selected\"]")).GetAttribute("value");
+            string AnniversaryMonth = driver.FindElement(By.XPath("//select[@name=\"amonth\"]/option[@selected=\"selected\"]")).GetAttribute("value");
             string AnniversaryYear = driver.FindElement(By.Name("ayear")).GetAttribute("value").Trim();
 
             string secondaryAddress = driver.FindElement(By.Name("address2")).GetAttribute("value").Trim();

@@ -29,7 +29,7 @@ namespace WebAddressbookTests
                 Email3 = "3333@ccc.com",
                 Homepage = "www.qwerty.com",
                 Birthday = new DateTime(year: 1988, month: 10, day: 18),
-                Anniversary = new DateTime(year: 2014, month: 03, day: 30),
+                Anniversary = new DateTime(year: 2014, month: 01, day: 30),
                 SecondaryAddress = "Komunna 23, 29",
                 SecondaryPhone = "555-55-55",
                 Notes = "Notes here"

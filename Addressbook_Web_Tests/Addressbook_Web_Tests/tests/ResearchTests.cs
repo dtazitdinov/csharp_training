@@ -25,12 +25,12 @@ namespace WebAddressbookTests
         [Test]
         public void ResearchTest()
         {
-            BirthdayYear = "";
-            BirthdayDay = "0";
-            BirthdayMonth = "-";
+            BirthdayYear = "1988";
+            BirthdayDay = "18";
+            BirthdayMonth = "10";
 
             
-            if (Birthday == null)
+            if (Birthday == DateTime.MinValue)
             {
                 Birthday = GetDate(BirthdayDay, BirthdayMonth, BirthdayYear);
                 Age = GetAge(Birthday);

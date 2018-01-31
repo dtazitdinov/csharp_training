@@ -20,16 +20,16 @@ namespace WebAddressbookTests
 
         public void GoToHomePage()
         {
-            if (driver.Url == baseURL + "addressbook/")
+            if (driver.Url == baseURL + ":8080/addressbook/")
             {
                 return;
             }
-            driver.Navigate().GoToUrl(baseURL + "addressbook/");
+            driver.Navigate().GoToUrl(baseURL + ":8080/addressbook/");
         }
 
         public void GoToGroupsPage()
         {
-            if (driver.Url == "addressbook/group.php" && IsElementPresent(By.Name("new")))
+            if (driver.Url == ":8080/addressbook/group.php" && IsElementPresent(By.Name("new")))
             {
                 return;
             }
