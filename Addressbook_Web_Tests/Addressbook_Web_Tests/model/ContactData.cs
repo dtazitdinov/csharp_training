@@ -68,7 +68,7 @@ namespace WebAddressbookTests
             }
             set { birthdayMonth = value; }
         }
-        public DateTime birthday;
+        public DateTime birthday = new DateTime();
         public DateTime Birthday
         {
             get
@@ -126,7 +126,7 @@ namespace WebAddressbookTests
             }
             set { anniversaryMonth = value; }
         }
-        public DateTime anniversary;
+        public DateTime anniversary = new DateTime();
         public DateTime Anniversary
         {
 
@@ -174,7 +174,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone) + CleanUp(SecondaryPhone)).Trim();
+                    return ((CleanUp(HomePhone) + "\r\n" + CleanUp(MobilePhone)).Trim() + "\r\n" + (CleanUp(WorkPhone) + "\r\n" + CleanUp(SecondaryPhone)).Trim()).Trim();
                 }
             }
             set
@@ -206,7 +206,7 @@ namespace WebAddressbookTests
 
         private string CleanUp(string phone)
         {
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
         }
 
         public int CompareTo(ContactData other)
@@ -270,7 +270,7 @@ namespace WebAddressbookTests
 
             Regex checkNums = new Regex(@"^\d+$"); // любые цифры
 
-            if (checkNums.IsMatch(year))
+            if (year != null && checkNums.IsMatch(year))
             {
                 date = date.AddYears(Int32.Parse(year) - 1);
             }
