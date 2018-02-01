@@ -17,26 +17,35 @@ namespace WebAddressbookTests
         public string BirthdayYear { get; set; }
         public string BirthdayDay { get; set; }
         public string BirthdayMonth { get; set; }
+        public string Age { get; set; }
+
+        public DateTime Anniversary;
         public string AnniversaryYear { get; set; }
         public string AnniversaryDay { get; set; }
         public string AnniversaryMonth { get; set; }
-        public string Age { get; set; }
+        public string YearsOfMarriage { get; set; }
+
 
         [Test]
         public void ResearchTest()
-        {
-            BirthdayYear = "1988";
+        {            
             BirthdayDay = "18";
-            BirthdayMonth = "10";
+            BirthdayMonth = "October";
+            BirthdayYear = "1988";
 
-            
             if (Birthday == DateTime.MinValue)
             {
-                Birthday = GetDate(BirthdayDay, BirthdayMonth, BirthdayYear);
-                Age = GetAge(Birthday);
+                Birthday = GetDateTime(BirthdayDay, BirthdayMonth, BirthdayYear);
+                Age = GetYearsFromTheDate(Birthday);                    
             }
 
-            System.Console.Out.WriteLine(string.Format("Birthday {0}{1}{2}", 
+            if (Anniversary == DateTime.MinValue)
+            {
+                Anniversary = GetDateTime(AnniversaryDay, AnniversaryMonth, AnniversaryYear);
+                YearsOfMarriage = GetYearsFromTheDate(Birthday);
+            }
+
+            System.Console.Out.WriteLine(string.Format("Birthday {0}{1}{2}{3}", 
                 BirthdayDay.Equals("0") ? "" : (BirthdayDay + ". "),
                 BirthdayMonth.Equals("-") ? "" : (BirthdayMonth + ' '),
                 BirthdayYear + " ", 
@@ -47,34 +56,33 @@ namespace WebAddressbookTests
 
         }
 
-        public DateTime GetDate(string day, string month, string year)
+        public DateTime GetDateTime(string day, string month, string year)
         {
             DateTime date = new DateTime();
             string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
 
-            if (day != null || Int32.Parse(day) != 0)
+            if (day != null && day != "0")
             {
-                date.AddDays(Int32.Parse(day) - 1);
+                date = date.AddDays(Int32.Parse(day) - 1);
             }
 
-            if (month != null || month != "")
+            if (month != null && month != "-")
             {
-                date.AddMonths(Array.IndexOf(monthNames, month));
+                date = date.AddMonths(Array.IndexOf(monthNames, month));
             }
 
             Regex checkNums = new Regex(@"^\d+$"); // любые цифры
-
-            if (checkNums.IsMatch(year))
+            if (year != null && checkNums.IsMatch(year))
             {
-                date.AddYears(Int32.Parse(year) - 1);
+                date = date.AddYears(Int32.Parse(year) - 1);                
             }
             return date;
         }
 
-        public string GetAge(DateTime date)
+        public string GetYearsFromTheDate(DateTime date)
         {
             int age = DateTime.Today.Year - date.Year;
-            if (Birthday > DateTime.Today.AddYears(-age))
+            if (date > DateTime.Today.AddYears(-age))
             {
                 age--;
             }
@@ -83,7 +91,7 @@ namespace WebAddressbookTests
                 return "";
             }
 
-            return string.Format("({0})",age.ToString());
+            return $"({age.ToString()})";
         }
 
     }

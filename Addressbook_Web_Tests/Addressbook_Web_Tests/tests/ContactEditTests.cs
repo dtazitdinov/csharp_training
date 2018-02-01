@@ -13,12 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactEditTest()
         {
-            ContactData newContactData = new ContactData("Daria", "Polyakova")
-            {
-                Birthday = new DateTime(year: 1983, month: 7, day: 3),
-            };
-
-
+            ContactData newContactData = new ContactData("Daria", "Polyakova");
 
             appManager.Contacts.CheckContactPresent();
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();

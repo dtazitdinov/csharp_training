@@ -16,7 +16,6 @@ namespace WebAddressbookTests
         {
             ContactData fromTable = appManager.Contacts.GetContactInformationFromTable(0);
             ContactData fromForm = appManager.Contacts.GetContactInformationFromForm(0);
-            string[] months = DateTimeFormatInfo.InvariantInfo.MonthNames;
 
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);

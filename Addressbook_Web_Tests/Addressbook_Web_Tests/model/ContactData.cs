@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -40,48 +41,41 @@ namespace WebAddressbookTests
         public string Email3 { get; set; }
         public string Homepage { get; set; }
 
-        //public DateTime birthday;
-        public DateTime Birthday { get; set; }
-        /*{
+        public string BirthdayYear { get; set; }
+        public string birthdayDay;
+        public string BirthdayDay
+        {
             get
             {
-                if (birthday != null)
+                if (birthdayDay == "0")
                 {
-                    return birthday;
+                    return birthdayDay = "";
                 }
-                else
+                return birthdayDay;
+            }
+            set { birthdayDay = value; }
+        }
+        public string birthdayMonth;
+        public string BirthdayMonth
+        {
+            get
+            {
+                if (birthdayMonth == "-")
                 {
-                    if (BirthdayYear != "")
-                    {
-                        int year = Int32.Parse(BirthdayYear);
-
-                        if (BirthdayDay == "")
-                        {
-                            int day = 1;
-                        }
-                        else
-                        {
-                            int day = Int32.Parse(BirthdayDay);
-                        }
-                        string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
-                        if (BirthdayMonth == "-")
-                        {
-                            int month = 1;
-                        }
-                        else
-                        {
-                            for (int i = 0; i < 12; i++)
-                            {
-                                if (BirthdayMonth == monthNames[i])
-                                {
-                                    int month = i + 1;
-                                }
-                            }
-                        }
-
-                        string date = string.Format("{0}.{1}.{2}", BirthdayDay, BirthdayMonth, BirthdayYear);
-                        birthday = new DateTime(1988, month, day);
-                    }
+                    return birthdayMonth = "";
+                }
+                return birthdayMonth;
+            }
+            set { birthdayMonth = value; }
+        }
+        public DateTime birthday;
+        public DateTime Birthday
+        {
+            get
+            {
+                if (birthday == DateTime.MinValue)
+                {
+                    birthday = GetDateTime(BirthdayDay, BirthdayMonth, BirthdayYear);
                 }
                 return birthday;
             }
@@ -89,15 +83,82 @@ namespace WebAddressbookTests
             {
                 birthday = value;
             }
-        }*/
-        public string BirthdayYear { get; set; }
-        public string BirthdayDay { get; set; }
-        public string BirthdayMonth { get; set; }
-        public DateTime Anniversary { get; set; }
+        }
+        public string age;
+        public string Age
+        {
+
+            get
+            {
+                return age = GetYearsFromTheDate(Birthday);
+            }
+            set
+            {
+                age = value;
+            }
+
+        }
+
         public string AnniversaryYear { get; set; }
-        public string AnniversaryDay { get; set; }
-        public string AnniversaryMonth { get; set; }
-        
+        public string anniversaryDay;
+        public string AnniversaryDay
+        {
+            get
+            {
+                if (anniversaryDay == "0")
+                {
+                    return anniversaryDay = "";
+                }
+                return anniversaryDay;
+            }
+            set { anniversaryDay = value; }
+        }
+        public string anniversaryMonth;
+        public string AnniversaryMonth
+        {
+            get
+            {
+                if (anniversaryMonth == "-")
+                {
+                    return anniversaryMonth = "";
+                }
+                return anniversaryMonth;
+            }
+            set { anniversaryMonth = value; }
+        }
+        public DateTime anniversary;
+        public DateTime Anniversary
+        {
+
+            get
+            {
+                if (anniversary == DateTime.MinValue)
+                {
+                    anniversary = GetDateTime(AnniversaryDay, AnniversaryMonth, AnniversaryYear);
+                }
+                return anniversary;
+            }
+            set
+            {
+                anniversary = value;
+            }
+
+        }
+        public string yearsOfMarriage;
+        public string YearsOfMarriage
+        {
+
+            get
+            {
+                return yearsOfMarriage = GetYearsFromTheDate(Anniversary);
+            }
+            set
+            {
+                yearsOfMarriage = value;
+            }
+
+        }
+
         public string SecondaryAddress { get; set; }
         public string SecondaryPhone { get; set; }
         public string Notes { get; set; }
@@ -122,11 +183,6 @@ namespace WebAddressbookTests
             }
         }
 
-        private string CleanUp(string phone)
-        {
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
-        }
-
         public string allEmails;
         public string AllEmails
         {
@@ -138,7 +194,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    
+
                     return ((Email + "\r\n" + Email2).Trim() + "\r\n" + Email3).Trim();
                 }
             }
@@ -146,6 +202,11 @@ namespace WebAddressbookTests
             {
                 allEmails = value;
             }
+        }
+
+        private string CleanUp(string phone)
+        {
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
         }
 
         public int CompareTo(ContactData other)
@@ -190,6 +251,45 @@ namespace WebAddressbookTests
         public override string ToString()
         {
             return "name = " + FirstName + ", Lastname = " + Lastname;
+        }
+
+        public DateTime GetDateTime(string day, string month, string year)
+        {
+            DateTime date = new DateTime();
+            string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
+
+            if (day != null && day != "")
+            {
+                date = date.AddDays(Int32.Parse(day) - 1);
+            }
+
+            if (month != null && month != "")
+            {
+                date = date.AddMonths(Array.IndexOf(monthNames, month));
+            }
+
+            Regex checkNums = new Regex(@"^\d+$"); // любые цифры
+
+            if (checkNums.IsMatch(year))
+            {
+                date = date.AddYears(Int32.Parse(year) - 1);
+            }
+            return date;
+        }
+
+        public string GetYearsFromTheDate(DateTime date)
+        {
+            int age = DateTime.Today.Year - date.Year;
+            if (date > DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+            if (age > 149)
+            {
+                return "";
+            }
+
+            return $"({age.ToString()})";
         }
     }
 }
