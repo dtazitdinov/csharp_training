@@ -284,7 +284,7 @@ namespace WebAddressbookTests
             {
                 age--;
             }
-            if (age > 149)
+            if (age > 149 || date.Year > 2200)
             {
                 return "";
             }

@@ -134,7 +134,7 @@ namespace WebAddressbookTests
             {
                 driver.FindElement(By.XPath($"//select[@name = 'aday']//option[@value = {contact.Anniversary.Day}]")).Click();
                 //driver.FindElement(By.XPath($"//select[@name = 'amonth']/option[@value = \"{monthNames[contact.Anniversary.Month - 1].ToLower()}\"]")).Click();
-                driver.FindElement(By.Name("amonth")).FindElements(By.TagName("option"))[contact.Anniversary.Month + 2].Click();
+                driver.FindElement(By.Name("amonth")).FindElements(By.TagName("option"))[contact.Anniversary.Month].Click();
                 Type(By.Name("ayear"), contact.Anniversary.Year.ToString());
             }
 
@@ -144,10 +144,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitNewContactCreation()
+        public void InitNewContactCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
-            return this;
+            return;
         }
 
         public void CheckContactPresent()
@@ -276,10 +276,9 @@ namespace WebAddressbookTests
                 contactDetail += Regex.Replace(detail, strPattern, String.Empty) + " ";
             }
 
-            Regex regPattern = new Regex(@"\s+");
-            contactDetail = regPattern.Replace(contactDetail, " ");
+            contactDetail = new Regex(@"\s+").Replace(contactDetail, " ").Trim();
 
-            return contactDetail.Trim();
+            return contactDetail;
         }
 
         public string GetContactInformationToString(ContactData contact)
@@ -312,8 +311,7 @@ namespace WebAddressbookTests
                 $"{contact.SecondaryPhone} " +
                 $"{contact.Notes}";
 
-            Regex pattern = new Regex(@"\s+");
-            details = pattern.Replace(details, " ");
+            details = new Regex(@"\s+").Replace(details, " ");
 
             return details;
         }

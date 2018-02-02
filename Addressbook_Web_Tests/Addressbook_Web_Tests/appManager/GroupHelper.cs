@@ -58,7 +58,7 @@ namespace WebAddressbookTests
                 return;
             }
 
-            GroupData group = new GroupData("group #" + OtherMetods.RandomNumber(1000));
+            GroupData group = new GroupData("group #" + TestBase.GenerateRandomNumber(1000));
             group.Header = "header";
             group.Footer = "footer";
 
