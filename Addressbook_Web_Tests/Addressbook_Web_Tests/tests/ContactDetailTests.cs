@@ -18,12 +18,6 @@ namespace WebAddressbookTests
             string formInString = appManager.Contacts.GetContactInformationToString(fromForm);
 
             Assert.AreEqual(fromDetail, formInString);
-            /*Assert.AreEqual(fromTable.Address, fromForm.Address);
-            Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);*/
         }
-
-
-
     }
 }

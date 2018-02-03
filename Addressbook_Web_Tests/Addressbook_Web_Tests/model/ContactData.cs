@@ -66,7 +66,11 @@ namespace WebAddressbookTests
                 }
                 return birthdayMonth;
             }
-            set { birthdayMonth = value; }
+            set
+            {
+                birthdayMonth = value;
+                birthdayMonth = char.ToUpper(birthdayMonth[0]) + birthdayMonth.Substring(1);
+            }
         }
         public DateTime birthday = new DateTime();
         public DateTime Birthday
@@ -124,7 +128,11 @@ namespace WebAddressbookTests
                 }
                 return anniversaryMonth;
             }
-            set { anniversaryMonth = value; }
+            set
+            {
+                anniversaryMonth = value;
+                anniversaryMonth = char.ToUpper(anniversaryMonth[0]) + anniversaryMonth.Substring(1);
+            }
         }
         public DateTime anniversary = new DateTime();
         public DateTime Anniversary

@@ -43,6 +43,29 @@ namespace WebAddressbookTests
         }
 
         [Test]
+        public void GroupCreationTestRandomData()
+        {
+            GroupData newGroup = new GroupData(GenerateRandomString(30))
+            {
+                Header = GenerateRandomString(100),
+                Footer = GenerateRandomString(100)
+            };
+
+            appManager.Navigator.GoToGroupsPage();
+            List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
+
+            appManager.Groups.Create(newGroup);
+
+            Assert.AreEqual(oldGroups.Count + 1, appManager.Groups.GetGroupsCount());
+
+            List<GroupData> newGroups = appManager.Groups.GetGroupsList();
+            oldGroups.Add(newGroup);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
+
+        [Test]
         public void GroupCreationTest()
         {
             GroupData newGroup = new GroupData("Group #" + GenerateRandomNumber(1000))
@@ -64,6 +87,5 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-
     }
 }

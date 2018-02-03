@@ -228,7 +228,7 @@ namespace WebAddressbookTests
                 Title = driver.FindElement(By.Name("title")).GetAttribute("value").Trim(),
 
                 Address = driver.FindElement(By.Name("address")).GetAttribute("value").Trim(),
-                HomePhone = driver.FindElement(By.Name("home")).GetAttribute("value").Trim(),
+                HomePhone = driver.FindElement(By.Name("home")).GetAttribute("value").TrimStart().TrimEnd(),
                 MobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value").Trim(),
                 WorkPhone = driver.FindElement(By.Name("work")).GetAttribute("value").Trim(),
                 FaxPhone = driver.FindElement(By.Name("fax")).GetAttribute("value").Trim(),
@@ -265,53 +265,45 @@ namespace WebAddressbookTests
             GoToContactDetail(index);
 
             String contactDetail = driver.FindElement(By.Id("content")).Text;
-
-            string[] details = contactDetail.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            contactDetail = "";
-
-            string strPattern = "(H:|M:|W:|F:|P:|Homepage:|Birthday|Anniversary)";
-            foreach (string detail in details)
-            {
-                contactDetail += Regex.Replace(detail, strPattern, String.Empty) + " ";
-            }
-
-            contactDetail = new Regex(@"\s+").Replace(contactDetail, " ").Trim();
-
+            contactDetail = Regex.Replace(contactDetail, @"\s+", " ").Trim();
+            
             return contactDetail;
         }
 
         public string GetContactInformationToString(ContactData contact)
         {
             string details = 
-                $"{contact.FirstName} " +
-                $"{contact.Middlename} " +
-                $"{contact.Lastname} " +
-                $"{contact.Nickname} " +
-                $"{contact.Title} " +
-                $"{contact.Company} " +
-                $"{contact.Address} " +
-                $"{contact.HomePhone} " +
-                $"{contact.MobilePhone} " +
-                $"{contact.WorkPhone} " +
-                $"{contact.FaxPhone} " +
-                $"{contact.Email} " +
-                $"{contact.Email2} " +
-                $"{contact.Email3} " +
-                $"{contact.Homepage} " +
+                $"{contact.FirstName} {contact.Middlename} {contact.Lastname}\n" +
+                $"{contact.Nickname}\n" +
+                $"{contact.Title}\n" +
+                $"{contact.Company}\n" +
+                $"{contact.Address}\n"+
+                $"H: {contact.HomePhone}\n" +
+                $"M: {contact.MobilePhone}\n" +
+                $"W: {contact.WorkPhone}\n" +
+                $"F: {contact.FaxPhone}\n" +
+                $"{contact.Email}\n" +
+                $"{contact.Email2}\n" +
+                $"{contact.Email3}\n" +
+                $"Homepage: " +
+                $"{contact.Homepage}\n" +
+                $"Birthday " +
                 $"{contact.BirthdayDay}. ".TrimStart('.') +
                 $"{contact.BirthdayMonth} " +
                 $"{contact.BirthdayYear} " +
-                $"{contact.Age} " +
+                $"{contact.Age}\n" +
+                $"Anniversary " +
                 $"{contact.AnniversaryDay}. ".TrimStart('.') +
                 $"{contact.AnniversaryMonth} " +
                 $"{contact.AnniversaryYear} " +
-                $"{contact.YearsOfMarriage} " +
-                $"{contact.SecondaryAddress} " +
-                $"{contact.SecondaryPhone} " +
+                $"{contact.YearsOfMarriage}\n" +
+                $"{contact.SecondaryAddress}\n" +
+                $"P: {contact.SecondaryPhone}\n" +
                 $"{contact.Notes}";
 
-            details = new Regex(@"\s+").Replace(details, " ");
+            string pattern = @"(([HMWFP]: )|(Homepage: )|(Birthday )|(Anniversary ))$";
+            details = Regex.Replace(details, pattern, "", RegexOptions.Multiline);
+            details = Regex.Replace(details, @"\s+", " ");
 
             return details;
         }

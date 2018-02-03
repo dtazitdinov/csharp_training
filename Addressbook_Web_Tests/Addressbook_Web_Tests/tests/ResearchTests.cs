@@ -28,71 +28,18 @@ namespace WebAddressbookTests
 
         [Test]
         public void ResearchTest()
-        {            
-            BirthdayDay = "18";
-            BirthdayMonth = "October";
-            BirthdayYear = "1988";
-
-            if (Birthday == DateTime.MinValue)
-            {
-                Birthday = GetDateTime(BirthdayDay, BirthdayMonth, BirthdayYear);
-                Age = GetYearsFromTheDate(Birthday);                    
-            }
-
-            if (Anniversary == DateTime.MinValue)
-            {
-                Anniversary = GetDateTime(AnniversaryDay, AnniversaryMonth, AnniversaryYear);
-                YearsOfMarriage = GetYearsFromTheDate(Birthday);
-            }
-
-            System.Console.Out.WriteLine(string.Format("Birthday {0}{1}{2}{3}", 
-                BirthdayDay.Equals("0") ? "" : (BirthdayDay + ". "),
-                BirthdayMonth.Equals("-") ? "" : (BirthdayMonth + ' '),
-                BirthdayYear + " ", 
-                Age).Trim());
-            //"Birthday 18. October 1988 (29)"
-
-            
-
-        }
-
-        public DateTime GetDateTime(string day, string month, string year)
         {
-            DateTime date = new DateTime();
-            string[] monthNames = DateTimeFormatInfo.InvariantInfo.MonthNames;
+            string detail = "Denis Dinislan Tazitdinov\n\n\nOne Inc\nKurchatova 25A, 47\n\nH: \nM: \nW: \nF: 444 44 44\n\n\n3333@ccc.com\nHomepage: \nBirthday 18. October 1988 (29)\nAnniversary 30. March 2014 (3)\n\nP: 555-55-55\nNotes her";
 
-            if (day != null && day != "0")
-            {
-                date = date.AddDays(Int32.Parse(day) - 1);
-            }
 
-            if (month != null && month != "-")
-            {
-                date = date.AddMonths(Array.IndexOf(monthNames, month));
-            }
+            string pattern = @"(([HMWFP]: )|(Homepage: )|(Birthday )|(Anniversary ))$";
+            detail = Regex.Replace(detail, pattern, "", RegexOptions.Multiline);
 
-            Regex checkNums = new Regex(@"^\d+$"); // любые цифры
-            if (year != null && checkNums.IsMatch(year))
-            {
-                date = date.AddYears(Int32.Parse(year) - 1);                
-            }
-            return date;
+            //detail = Regex.Replace(detail, @"\s+", " ");
+
+            System.Console.Out.WriteLine(detail);
+
+
         }
-
-        public string GetYearsFromTheDate(DateTime date)
-        {
-            int age = DateTime.Today.Year - date.Year;
-            if (date > DateTime.Today.AddYears(-age))
-            {
-                age--;
-            }
-            if (age > 149)
-            {
-                return "";
-            }
-
-            return $"({age.ToString()})";
-        }
-
     }
 }
