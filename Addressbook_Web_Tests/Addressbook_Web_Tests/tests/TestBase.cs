@@ -31,9 +31,9 @@ namespace WebAddressbookTests
 
             for (int i = 0; i < lenght; i++)
             {
-                builder.Append(Convert.ToChar(rndNumber.Next(223) + 32));
+                builder.Append(Convert.ToChar(rndNumber.Next(65) + 32));
             }
-            return builder.ToString().Replace("'"," ").Replace(@"\", " ").Replace(@"/"," ").Replace(@"<", " ");            
+            return Regex.Replace(builder.ToString(), "['\\/<>,\"]", "");
         }
     }
 }

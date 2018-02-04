@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -47,7 +48,46 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
-        [Test, TestCaseSource("RandomContactDataProvider")]
+
+        public static IEnumerable<ContactData> ContactDataFromFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+
+            string[] lines = File.ReadAllLines("ContactData.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0])
+                {
+                    Middlename = parts[1],
+                    Lastname = parts[2],
+                    Nickname = parts[3],
+                    Title = parts[4],
+                    Company = parts[5],
+                    Address = parts[6],
+                    HomePhone = parts[7],
+                    MobilePhone = parts[8],
+                    WorkPhone = parts[9],
+                    FaxPhone = parts[10],
+                    Email = parts[11],
+                    Email2 = parts[12],
+                    Email3 = parts[13],
+                    Homepage = parts[14],
+                    BirthdayDay = parts[15],
+                    BirthdayMonth = parts[16],
+                    BirthdayYear = parts[17],
+                    AnniversaryDay = parts[18],
+                    AnniversaryMonth = parts[19],
+                    AnniversaryYear = parts[20],
+                    SecondaryAddress = parts[21],
+                    SecondaryPhone = parts[22],
+                    Notes = parts[23]
+                });
+            }
+            return contacts;
+        }
+
+        [Test, TestCaseSource("ContactDataFromFile")]
         public void ContactCreationTestWithRandomData(ContactData newContact)
         {
             appManager.Navigator.GoToHomePage();
