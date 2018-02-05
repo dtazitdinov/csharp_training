@@ -21,10 +21,10 @@ namespace addressbook_test_data_generators
             List<GroupData> groups = new List<GroupData>();
             for (int i = 0; i < count; i++)
             {
-                groups.Add(new GroupData(TestBase.GenerateRandomString(10))
+                groups.Add(new GroupData(TestBase.GenerateRandomString(30))
                 {
-                    Header = TestBase.GenerateRandomString(20),
-                    Footer = TestBase.GenerateRandomString(20)
+                    Header = TestBase.GenerateRandomString(100),
+                    Footer = TestBase.GenerateRandomString(100)
                 });                                 
             }
 
@@ -58,7 +58,7 @@ namespace addressbook_test_data_generators
 
         static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
-
+            new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }
 
         /*            string[] lines = File.ReadAllLines("ContactData.csv");
