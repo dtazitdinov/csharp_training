@@ -86,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="ContactsData.csv">
+    <None Include="ContactsData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="GroupsData.json">
@@ -100,7 +100,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GroupsData.xml" />
+    <Content Include="ContactsData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="GroupsData.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

@@ -45,19 +45,16 @@ namespace WebAddressbookTests
                 {
                     Name = range.Cells[row,1].Value,
                     Header = range.Cells[row, 2].Value,
-                    Footer = range.Cells[row, 2].Value
+                    Footer = range.Cells[row, 3].Value
                 });
             }
             wb.Close();
-            appExcel.Quit();
+            appExcel.Quit(); 
             return groups;
         }
 
         public static IEnumerable<GroupData> GroupDataFromXmlFile()
         {
-            List<GroupData> groups = new List<GroupData>();
-
-            string[] lines = File.ReadAllLines("GroupsData.xml");
             return (List<GroupData>) 
                 new XmlSerializer(typeof(List<GroupData>))
                 .Deserialize(new StreamReader(@"GroupsData.xml"));
@@ -65,7 +62,6 @@ namespace WebAddressbookTests
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            //List<GroupData> groups = new List<GroupData>();
             return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(@"GroupsData.json"));
         }
@@ -87,7 +83,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTestFromFile(GroupData newGroup)
         {
             appManager.Navigator.GoToGroupsPage();

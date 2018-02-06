@@ -10,6 +10,10 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
+        public ContactData()
+        {
+        }
+
         public ContactData(string name)
         {
             FirstName = name;
@@ -42,7 +46,7 @@ namespace WebAddressbookTests
         public string Homepage { get; set; }
 
         public string BirthdayYear { get; set; }
-        public string birthdayDay;
+        private string birthdayDay;
         public string BirthdayDay
         {
             get
@@ -55,7 +59,7 @@ namespace WebAddressbookTests
             }
             set { birthdayDay = value; }
         }
-        public string birthdayMonth;
+        private string birthdayMonth;
         public string BirthdayMonth
         {
             get
@@ -68,11 +72,18 @@ namespace WebAddressbookTests
             }
             set
             {
-                birthdayMonth = value;
-                birthdayMonth = char.ToUpper(birthdayMonth[0]) + birthdayMonth.Substring(1);
+                if (value != null)
+                {
+                    birthdayMonth = value;
+                    birthdayMonth = char.ToUpper(birthdayMonth[0]) + birthdayMonth.Substring(1);
+                }
+                else
+                {
+                    birthdayMonth = "-";
+                }
             }
         }
-        public DateTime birthday = new DateTime();
+        private DateTime birthday = new DateTime();
         public DateTime Birthday
         {
             get
@@ -88,7 +99,7 @@ namespace WebAddressbookTests
                 birthday = value;
             }
         }
-        public string age;
+        private string age;
         public string Age
         {
 
@@ -104,7 +115,7 @@ namespace WebAddressbookTests
         }
 
         public string AnniversaryYear { get; set; }
-        public string anniversaryDay;
+        private string anniversaryDay;
         public string AnniversaryDay
         {
             get
@@ -117,7 +128,7 @@ namespace WebAddressbookTests
             }
             set { anniversaryDay = value; }
         }
-        public string anniversaryMonth;
+        private string anniversaryMonth;
         public string AnniversaryMonth
         {
             get
@@ -131,10 +142,13 @@ namespace WebAddressbookTests
             set
             {
                 anniversaryMonth = value;
-                anniversaryMonth = char.ToUpper(anniversaryMonth[0]) + anniversaryMonth.Substring(1);
+                if (value != null)
+                {
+                    anniversaryMonth = char.ToUpper(anniversaryMonth[0]) + anniversaryMonth.Substring(1);
+                }
             }
         }
-        public DateTime anniversary = new DateTime();
+        private DateTime anniversary = new DateTime();
         public DateTime Anniversary
         {
 
@@ -152,7 +166,7 @@ namespace WebAddressbookTests
             }
 
         }
-        public string yearsOfMarriage;
+        private string yearsOfMarriage;
         public string YearsOfMarriage
         {
 
@@ -171,7 +185,7 @@ namespace WebAddressbookTests
         public string SecondaryPhone { get; set; }
         public string Notes { get; set; }
 
-        public string allPhones;
+        private string allPhones;
         public string AllPhones
         {
             get
@@ -191,7 +205,7 @@ namespace WebAddressbookTests
             }
         }
 
-        public string allEmails;
+        private string allEmails;
         public string AllEmails
         {
             get

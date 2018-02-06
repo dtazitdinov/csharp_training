@@ -33,7 +33,8 @@ namespace WebAddressbookTests
             {
                 builder.Append(Convert.ToChar(rndNumber.Next(65) + 32));
             }
-            return Regex.Replace(builder.ToString(), "['\\/<>,\"]", "");
+            string builderStr = Regex.Replace(builder.ToString(), "[`'\\</>,\"]", "");
+            return builderStr;
         }
     }
 }
