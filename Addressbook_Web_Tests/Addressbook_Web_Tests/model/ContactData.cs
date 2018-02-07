@@ -5,9 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public ContactData()
@@ -25,41 +27,60 @@ namespace WebAddressbookTests
             Lastname = lastname;
         }
 
+
+        [Column(Name = "id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        [Column(Name = "firstName")]
         public string FirstName { get; set; }
+
+        [Column(Name = "middlename")]
         public string Middlename { get; set; }
+
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
+
+        [Column(Name = "nickname")]
         public string Nickname { get; set; }
 
+        [Column(Name = "company")]
         public string Company { get; set; }
+
+        [Column(Name = "title")]
         public string Title { get; set; }
 
+        [Column(Name = "address")]
         public string Address { get; set; }
+
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
+
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
+
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
+
+        [Column(Name = "fax")]
         public string FaxPhone { get; set; }
 
+        [Column(Name = "email")]
         public string Email { get; set; }
+
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
+
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
+
+        [Column(Name = "homepage")]
         public string Homepage { get; set; }
 
+        [Column(Name = "byear")]
         public string BirthdayYear { get; set; }
-        private string birthdayDay;
-        public string BirthdayDay
-        {
-            get
-            {
-                if (birthdayDay == "0")
-                {
-                    return birthdayDay = "";
-                }
-                return birthdayDay;
-            }
-            set { birthdayDay = value; }
-        }
+
         private string birthdayMonth;
+        [Column(Name = "bmonth")]
         public string BirthdayMonth
         {
             get
@@ -83,6 +104,22 @@ namespace WebAddressbookTests
                 }
             }
         }
+
+        private string birthdayDay;
+        [Column(Name = "bday")]
+        public string BirthdayDay
+        {
+            get
+            {
+                if (birthdayDay == "0")
+                {
+                    return birthdayDay = "";
+                }
+                return birthdayDay;
+            }
+            set { birthdayDay = value; }
+        }
+
         private DateTime birthday = new DateTime();
         public DateTime Birthday
         {
@@ -99,6 +136,7 @@ namespace WebAddressbookTests
                 birthday = value;
             }
         }
+
         private string age;
         public string Age
         {
@@ -114,21 +152,11 @@ namespace WebAddressbookTests
 
         }
 
+        [Column(Name = "ayear")]
         public string AnniversaryYear { get; set; }
-        private string anniversaryDay;
-        public string AnniversaryDay
-        {
-            get
-            {
-                if (anniversaryDay == "0")
-                {
-                    return anniversaryDay = "";
-                }
-                return anniversaryDay;
-            }
-            set { anniversaryDay = value; }
-        }
+
         private string anniversaryMonth;
+        [Column(Name = "amonth")]
         public string AnniversaryMonth
         {
             get
@@ -148,6 +176,22 @@ namespace WebAddressbookTests
                 }
             }
         }
+
+        private string anniversaryDay;
+        [Column(Name = "aday")]
+        public string AnniversaryDay
+        {
+            get
+            {
+                if (anniversaryDay == "0")
+                {
+                    return anniversaryDay = "";
+                }
+                return anniversaryDay;
+            }
+            set { anniversaryDay = value; }
+        }
+
         private DateTime anniversary = new DateTime();
         public DateTime Anniversary
         {
@@ -166,6 +210,7 @@ namespace WebAddressbookTests
             }
 
         }
+
         private string yearsOfMarriage;
         public string YearsOfMarriage
         {
@@ -181,9 +226,28 @@ namespace WebAddressbookTests
 
         }
 
+        [Column(Name = "address2")]
         public string SecondaryAddress { get; set; }
+
+        [Column(Name = "phone2")]
         public string SecondaryPhone { get; set; }
+
+        [Column(Name = "notes")]
         public string Notes { get; set; }
+
+        //string deprecated;
+        //[Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+/*        {
+            get
+            {
+                return deprecated;
+            }
+            set
+            {
+                deprecated = DateTime.Parse(value.ToString());
+            }
+        }*/
 
         private string allPhones;
         public string AllPhones
@@ -315,5 +379,15 @@ namespace WebAddressbookTests
 
             return $"({age.ToString()})";
         }
+
+        public static List<ContactData> GetAllFromDb()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from g in db.Contacts
+                            
+                        select g).ToList();
+            }
+        }//where g.Deprecated > DateTime.MinValue 
     }
 }
