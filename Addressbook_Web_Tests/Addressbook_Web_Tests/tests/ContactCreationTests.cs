@@ -68,7 +68,7 @@ namespace WebAddressbookTests
         }
 
         [Test, TestCaseSource("ContactsDataFromJsonFile")]
-        public void ContactCreationTestWithRandomData(ContactData newContact)
+        public void ContactCreationTestFromFile(ContactData newContact)
         {
             appManager.Navigator.GoToHomePage();
             List<ContactData> oldContacts = appManager.Contacts.GetContactsList();

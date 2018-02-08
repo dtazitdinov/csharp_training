@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupEditTests : AuthTestBase
+    public class GroupEditTests : GroupTestBase
     {
         [Test]
         public void GroupEditTest()
@@ -18,14 +18,16 @@ namespace WebAddressbookTests
             newData.Footer = "Changed Footer";
 
             appManager.Groups.CheckGroupPresent();
-            List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> oldGroups = GroupData.GetAllFromDb();
 
-            GroupData oldData = oldGroups[0];
-            appManager.Groups.Edit(0, newData);
+            GroupData toBeEdited = oldGroups[0];
+
+            GroupData oldData = toBeEdited;
+            appManager.Groups.Edit(toBeEdited.Id, newData);
 
             Assert.AreEqual(oldGroups.Count, appManager.Groups.GetGroupsCount());
 
-            List<GroupData> newGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> newGroups = GroupData.GetAllFromDb();
 
             oldGroups[0].Name = newData.Name;
             oldGroups[0].Header = newData.Header;

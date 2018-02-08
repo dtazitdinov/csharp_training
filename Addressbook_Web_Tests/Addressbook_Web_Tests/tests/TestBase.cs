@@ -9,6 +9,7 @@ namespace WebAddressbookTests
     [TestFixture]
     public class TestBase
     {
+        public static bool PROTECTED_LONG_UI_CHECKS = true;
         protected ApplicationManager appManager;
 
         [SetUp]
@@ -33,7 +34,7 @@ namespace WebAddressbookTests
             {
                 builder.Append(Convert.ToChar(rndNumber.Next(65) + 32));
             }
-            string builderStr = Regex.Replace(builder.ToString(), "[`'\\</>,\"]", "");
+            string builderStr = Regex.Replace(builder.ToString(), @"[\'<>,""\\]", "");
             return builderStr;
         }
     }

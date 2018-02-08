@@ -31,6 +31,9 @@ namespace WebAddressbookTests
         [Column(Name = "group_footer")]
         public string Footer { get; set; }
 
+        [Column(Name = "deprecated")]
+        public DateTime Deprecated { get; set; }
+
         public int CompareTo(GroupData other)
         {
             if (object.ReferenceEquals(other, null))
@@ -71,7 +74,9 @@ namespace WebAddressbookTests
         {
             using (AddressbookDB db = new AddressbookDB())
             {
-                return (from g in db.Groups select g).ToList();
+                return (from g in db.Groups
+                        where g.Deprecated < DateTime.MinValue
+                        select g).ToList();
             }
         }
     }

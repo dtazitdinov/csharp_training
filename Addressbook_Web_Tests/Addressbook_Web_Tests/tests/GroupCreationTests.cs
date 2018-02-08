@@ -15,7 +15,7 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -88,13 +88,13 @@ namespace WebAddressbookTests
         public void GroupCreationTestFromFile(GroupData newGroup)
         {
             appManager.Navigator.GoToGroupsPage();
-            List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> oldGroups = GroupData.GetAllFromDb();
 
             appManager.Groups.Create(newGroup);
 
             Assert.AreEqual(oldGroups.Count + 1, appManager.Groups.GetGroupsCount());
 
-            List<GroupData> newGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> newGroups = GroupData.GetAllFromDb();
             oldGroups.Add(newGroup);
             oldGroups.Sort();
             newGroups.Sort();
@@ -111,13 +111,13 @@ namespace WebAddressbookTests
             };
 
             appManager.Navigator.GoToGroupsPage();
-            List<GroupData> oldGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> oldGroups = GroupData.GetAllFromDb();
 
             appManager.Groups.Create(newGroup);
 
             Assert.AreEqual(oldGroups.Count + 1, appManager.Groups.GetGroupsCount());
 
-            List<GroupData> newGroups = appManager.Groups.GetGroupsList();
+            List<GroupData> newGroups = GroupData.GetAllFromDb(); 
             oldGroups.Add(newGroup);
             oldGroups.Sort();
             newGroups.Sort();
@@ -148,7 +148,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void TestDBConnection()
+        public void TestGroupDBConnection()
         {
             DateTime start = DateTime.Now;
             List<GroupData> fromUi = appManager.Groups.GetGroupsList();

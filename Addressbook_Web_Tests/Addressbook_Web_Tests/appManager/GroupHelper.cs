@@ -40,11 +40,30 @@ namespace WebAddressbookTests
             ReturnToGroupPage();
             return this;
         }
+        public GroupHelper Edit(string Id, GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(Id);
+            InitEditGroup();
+            FillGroupForm(group);
+            SubmitEditedGroup();
+            ReturnToGroupPage();
+            return this;
+        }
 
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GoToGroupsPage();
             SelectGroup(index);
+            RemoveGroup();
+            ReturnToGroupPage();
+            return this;
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(group.Id);
             RemoveGroup();
             ReturnToGroupPage();
             return this;
@@ -68,6 +87,12 @@ namespace WebAddressbookTests
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string Id)
+        {
+            driver.FindElement(By.XPath($"(//input[@name='selected[]' and @value='{Id}'])")).Click();
             return this;
         }
 

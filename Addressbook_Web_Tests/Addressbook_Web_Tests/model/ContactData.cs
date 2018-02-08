@@ -235,19 +235,8 @@ namespace WebAddressbookTests
         [Column(Name = "notes")]
         public string Notes { get; set; }
 
-        //string deprecated;
-        //[Column(Name = "deprecated")]
-        public string Deprecated { get; set; }
-/*        {
-            get
-            {
-                return deprecated;
-            }
-            set
-            {
-                deprecated = DateTime.Parse(value.ToString());
-            }
-        }*/
+        [Column(Name = "deprecated")]
+        public DateTime Deprecated { get; set; }
 
         private string allPhones;
         public string AllPhones
@@ -384,10 +373,10 @@ namespace WebAddressbookTests
         {
             using (AddressbookDB db = new AddressbookDB())
             {
-                return (from g in db.Contacts
-                            
-                        select g).ToList();
+                return (from c in db.Contacts
+                        where c.Deprecated < DateTime.MinValue
+                        select c).ToList();
             }
-        }//where g.Deprecated > DateTime.MinValue 
+        }
     }
 }
