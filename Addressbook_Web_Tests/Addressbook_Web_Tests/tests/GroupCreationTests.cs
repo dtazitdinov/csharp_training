@@ -160,5 +160,15 @@ namespace WebAddressbookTests
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
         }
+
+        [Test]
+        public void TestGCRDBConnection()
+        {
+            foreach(ContactData contact in GroupData.GetAllFromDb()[0].GetContacts())
+            {
+                System.Console.Out.WriteLine($"{contact.FirstName} {contact.Lastname}");
+            }
+
+        }
     }
 }

@@ -281,9 +281,9 @@ namespace WebAddressbookTests
 
         private string CleanUp(string phone)
         {
-            phone = Regex.Replace(phone, @"[-() ]", "");
-            return phone;
-            //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+            //phone = Regex.Replace(phone, "[ -()]", "");
+            //return phone;
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
         }
 
         public int CompareTo(ContactData other)

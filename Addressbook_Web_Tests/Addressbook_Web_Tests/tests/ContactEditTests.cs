@@ -16,14 +16,16 @@ namespace WebAddressbookTests
             ContactData newContactData = new ContactData("Daria", "Polyakova");
 
             appManager.Contacts.CheckContactPresent();
-            List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> oldContacts = ContactData.GetAllFromDb();
 
-            ContactData oldData = oldContacts[0];
-            appManager.Contacts.Edit(0, newContactData);
+            ContactData toBeEdited = oldContacts[0];
+
+            ContactData oldData = toBeEdited;
+            appManager.Contacts.Edit(toBeEdited.Id, newContactData);
 
             Assert.AreEqual(oldContacts.Count, appManager.Contacts.GetContactsCount());
 
-            List<ContactData> newContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> newContacts = ContactData.GetAllFromDb();
             oldContacts[0].FirstName = "Daria";
             oldContacts[0].Lastname = "Polyakova";
             oldContacts.Sort();

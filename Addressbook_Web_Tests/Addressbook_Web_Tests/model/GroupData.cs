@@ -22,17 +22,30 @@ namespace WebAddressbookTests
         [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
 
+        private string name;
         [Column(Name = "group_name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                if (name != null)
+                {
+                    name = name.Trim(' ');
+                }
+
+            }
+        }
 
         [Column(Name = "group_header")]
         public string Header { get; set; }
 
         [Column(Name = "group_footer")]
         public string Footer { get; set; }
-
-        [Column(Name = "deprecated")]
-        public DateTime Deprecated { get; set; }
 
         public int CompareTo(GroupData other)
         {
@@ -75,9 +88,20 @@ namespace WebAddressbookTests
             using (AddressbookDB db = new AddressbookDB())
             {
                 return (from g in db.Groups
-                        where g.Deprecated < DateTime.MinValue
+                        orderby g.Id
                         select g).ToList();
             }
+        }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id && c.Deprecated < DateTime.MinValue)
+                        select c).Distinct().ToList();
+            }
+
         }
     }
 }

@@ -26,9 +26,35 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Edit(int index, ContactData contact)
+        internal void AddToGroup(ContactData contact, GroupData group)
         {
-            InitEditContact(index);
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public ContactHelper Edit(string id, ContactData contact)
+        {
+            InitEditContact(id);
             FillForm(contact);
             SubmitEditedContact();
             ReturnHomePage();
@@ -40,9 +66,9 @@ namespace WebAddressbookTests
             return driver.FindElements(By.XPath("//tr[@name='entry']")).Count;
         }
 
-        public ContactHelper Remove(int index)
+        public ContactHelper Remove(string id)
         {
-            SelectContact(index);
+            SelectContact(id);
             InitRemoveContact();
             driver.SwitchTo().Alert().Accept();
             ReturnHomePage();
@@ -68,15 +94,25 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
         }
 
+        public void SelectContact(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+        }
+
         public void SubmitEditedContact()
         {
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
         }
 
+        public void InitEditContact(string id)
+        {
+            driver.FindElement(By.XPath($"//a[@href='edit.php?id={id}']")).Click();
+        }
+
         public void InitEditContact(int index)
         {
-            driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
+            driver.FindElements(By.XPath("//img[@title=\"Edit\"]"))[index].Click();
         }
 
         public void GoToContactDetail(int index)

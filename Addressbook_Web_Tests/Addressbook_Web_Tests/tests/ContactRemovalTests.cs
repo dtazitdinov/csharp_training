@@ -14,14 +14,14 @@ namespace WebAddressbookTests
         public void ContactRemovalTest()
         {
             appManager.Contacts.CheckContactPresent();
-            List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> oldContacts = ContactData.GetAllFromDb();
 
             ContactData toBeRemoved = oldContacts[0];
-            appManager.Contacts.Remove(0);
+            appManager.Contacts.Remove(toBeRemoved.Id);
 
             Assert.AreEqual(oldContacts.Count - 1, appManager.Contacts.GetContactsCount());
 
-            List<ContactData> newContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> newContacts = ContactData.GetAllFromDb();
             oldContacts.RemoveAt(0);
             oldContacts.Sort();
             newContacts.Sort();
@@ -42,13 +42,13 @@ namespace WebAddressbookTests
             appManager.Contacts.Create(contactForRemove);
 
             appManager.Contacts.CheckContactPresent();
-            List<ContactData> oldContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> oldContacts = ContactData.GetAllFromDb();
 
             appManager.Contacts.RemoveByName(contactForRemove);
 
             Assert.AreEqual(oldContacts.Count - 1, appManager.Contacts.GetContactsCount());
 
-            List<ContactData> newContacts = appManager.Contacts.GetContactsList();
+            List<ContactData> newContacts = ContactData.GetAllFromDb();
 
             foreach (ContactData element in oldContacts)
             {
