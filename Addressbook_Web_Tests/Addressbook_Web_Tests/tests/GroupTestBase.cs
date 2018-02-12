@@ -16,9 +16,11 @@ namespace WebAddressbookTests
             {
                 List<GroupData> fromUI = appManager.Groups.GetGroupsList();
                 List<GroupData> fromDB = GroupData.GetAllFromDb();
-                fromUI = (from g in fromUI
+                /*fromUI = (from g in fromUI
                             orderby g.Id
-                            select g).ToList();
+                            select g).ToList();*/
+                fromUI.Sort();
+                fromDB.Sort();
 
                 Assert.AreEqual(fromUI, fromDB);
             }

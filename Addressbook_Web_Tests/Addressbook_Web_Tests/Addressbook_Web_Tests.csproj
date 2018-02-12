@@ -89,6 +89,7 @@
     <Compile Include="model\OtherMetods.cs" />
     <Compile Include="tests\GroupTestBase.cs" />
     <Compile Include="tests\LoginTests.cs" />
+    <Compile Include="tests\RemovalContactFromGroupTests.cs" />
     <Compile Include="tests\ResearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

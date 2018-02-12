@@ -25,11 +25,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public int GetGroupsCount()
-        {
-            return driver.FindElements(By.CssSelector("span.group")).Count;
-        }
-
         public GroupHelper Edit(int index, GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -40,6 +35,7 @@ namespace WebAddressbookTests
             ReturnToGroupPage();
             return this;
         }
+        
         public GroupHelper Edit(string Id, GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -67,6 +63,11 @@ namespace WebAddressbookTests
             RemoveGroup();
             ReturnToGroupPage();
             return this;
+        }
+
+        public int GetGroupsCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
         public void CheckGroupPresent()
@@ -151,23 +152,6 @@ namespace WebAddressbookTests
 
         private List<GroupData> groupCache = null;
 
-        /*public List<GroupData> GetGroupsList()
-        {
-            if (groupCache == null)
-            {
-                groupCache = new List<GroupData>();
-                manager.Navigator.GoToGroupsPage();
-                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-
-                foreach (IWebElement element in elements)
-                {
-                    groupCache.Add(new GroupData(element.Text) {
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                    });
-                }
-            }
-            return new List<GroupData>(groupCache);
-        }*/
         public List<GroupData> GetGroupsList()
         {
             if (groupCache == null)
@@ -200,6 +184,17 @@ namespace WebAddressbookTests
                 }
             }
             return new List<GroupData>(groupCache);
+        }
+
+        public GroupData GetGroupWithContacts(List<GroupData> groups)
+        {
+            int i = 0;
+            while (groups[i].GetContacts().Count == 0)
+            {
+                i++;
+            }
+
+            return groups[i];
         }
     }
 }
