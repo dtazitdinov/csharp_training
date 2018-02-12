@@ -67,7 +67,6 @@ namespace WebAddressbookTests
         public void RemoveContactFromGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
-            ClearGroupFilter();
             SelectGroup(group.Id);
             SelectContact(contact.Id);
             InitRemoveContactFromGroup();
