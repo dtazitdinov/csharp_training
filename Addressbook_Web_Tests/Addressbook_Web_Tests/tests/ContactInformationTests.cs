@@ -14,6 +14,7 @@ namespace WebAddressbookTests
         [Test]
         public void TestContactInformation()
         {
+            appManager.Contacts.CheckContactPresent();
             ContactData fromTable = appManager.Contacts.GetContactInformationFromTable(0);
             ContactData fromForm = appManager.Contacts.GetContactInformationFromForm(0);
 

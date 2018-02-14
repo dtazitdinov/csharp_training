@@ -16,6 +16,7 @@ namespace WebAddressbookTests
             ContactData newContactData = new ContactData("Daria", "Polyakova");
 
             appManager.Contacts.CheckContactPresent();
+
             List<ContactData> oldContacts = ContactData.GetAllFromDb();
 
             ContactData toBeEdited = oldContacts[0];

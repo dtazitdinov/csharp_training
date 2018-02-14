@@ -188,13 +188,47 @@ namespace WebAddressbookTests
 
         public GroupData GetGroupWithContacts(List<GroupData> groups)
         {
-            int i = 0;
-            while (groups[i].GetContacts().Count == 0)
+            GroupData group = null;
+            for (int i = 0; i < groups.Count; i++)
             {
-                i++;
+                if (groups[i].GetContacts().Count > 0)
+                {
+                    group = groups[i];
+                    break;
+                }
             }
 
-            return groups[i];
+            if (group == null)
+            {
+                ContactData contact = ContactData.GetAllFromDb().First();
+                manager.Contacts.AddToGroup(contact, groups[0]);
+                group = groups[0];
+            }
+
+            return group;
+        }
+
+        public GroupData GetFreeGroup(List<GroupData> groups)
+        {
+            GroupData freeGroup = null;
+
+            foreach (GroupData group in groups)
+            {
+                List<ContactData> contactList = group.GetContacts();
+                if (ContactData.GetAllFromDb().Except(contactList).Count() > 0)
+                {
+                    freeGroup = group;
+                    break;
+                }
+            }
+
+            if (freeGroup == null)
+            {
+                manager.Contacts.Create(new ContactData("Han", "Solo"));
+                freeGroup = GroupData.GetAllFromDb().First();
+            }
+
+            return freeGroup;
         }
     }
 }

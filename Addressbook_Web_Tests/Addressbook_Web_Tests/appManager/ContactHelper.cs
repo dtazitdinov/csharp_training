@@ -74,6 +74,8 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
+        
+
         private void InitRemoveContactFromGroup()
         {
             driver.FindElement(By.Name("remove")).Click();

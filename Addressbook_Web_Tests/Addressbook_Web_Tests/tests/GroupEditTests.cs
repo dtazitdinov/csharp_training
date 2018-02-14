@@ -13,9 +13,11 @@ namespace WebAddressbookTests
         [Test]
         public void GroupEditTest()
         {
-            GroupData newData = new GroupData("Changed Group #" + GenerateRandomNumber(1000));
-            newData.Header = "Changed Header";
-            newData.Footer = "Changed Footer";
+            GroupData newData = new GroupData("Changed Group #" + GenerateRandomNumber(1000))
+            {
+                Header = "Changed Header",
+                Footer = "Changed Footer"
+            };
 
             appManager.Groups.CheckGroupPresent();
             List<GroupData> oldGroups = GroupData.GetAllFromDb();

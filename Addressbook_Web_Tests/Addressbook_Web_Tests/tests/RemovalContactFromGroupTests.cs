@@ -13,11 +13,14 @@ namespace WebAddressbookTests
         [Test]
         public void RemovalContactFromGroupTest()
         {
+            appManager.Contacts.CheckContactPresent();
+            appManager.Groups.CheckGroupPresent();
+
             List<GroupData> groups = GroupData.GetAllFromDb();
             GroupData group = appManager.Groups.GetGroupWithContacts(groups);
             List<ContactData> oldList = group.GetContacts();
 
-            ContactData contact = oldList[0];
+            ContactData contact = oldList.First();
 
             appManager.Contacts.RemoveContactFromGroup(contact, group);
 

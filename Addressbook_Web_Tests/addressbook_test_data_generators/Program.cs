@@ -43,15 +43,15 @@ namespace addressbook_test_data_generators
                     StreamWriter writer = new StreamWriter(filename);
                     if (format == "csv")
                     {
-                        writeGroupsToCsvFile(groups, writer);
+                        WriteGroupsToCsvFile(groups, writer);
                     }
                     else if (format == "xml")
                     {
-                        writeGroupsToXmlFile(groups, writer);
+                        WriteGroupsToXmlFile(groups, writer);
                     }
                     else if (format == "json")
                     {
-                        writeGroupsToJsonFile(groups, writer);
+                        WriteGroupsToJsonFile(groups, writer);
                     }
                     else
                     {
@@ -100,11 +100,11 @@ namespace addressbook_test_data_generators
                 StreamWriter writer = new StreamWriter(filename);
                 if (format == "xml")
                 {
-                    writeContactsToXmlFile(contacts, writer);
+                    WriteContactsToXmlFile(contacts, writer);
                 }
                 else if (format == "json")
                 {
-                    writeContactsToJsonFile(contacts, writer);
+                    WriteContactsToJsonFile(contacts, writer);
                 }
                 else
                 {
@@ -121,7 +121,7 @@ namespace addressbook_test_data_generators
             System.Console.WriteLine("Successful");
         }
 
-        static void writeGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
+        static void WriteGroupsToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
             {
@@ -131,12 +131,12 @@ namespace addressbook_test_data_generators
             }
         }
 
-        static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
+        static void WriteGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }
 
-        static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
+        static void WriteGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
 
@@ -164,12 +164,12 @@ namespace addressbook_test_data_generators
             appExcel.Quit();            
         }
 
-        static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        static void WriteContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
 
-        static void writeContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        static void WriteContactsToJsonFile(List<ContactData> contacts, StreamWriter writer)
         {
             writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
         }
